@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import {FormGroup,FormControl } from "@angular/forms";
+import {FormGroup, FormControl, Validators} from "@angular/forms";
 import {PostsService} from "../../shared/services/posts.service";
 import {ItemDetailsModel} from "../models/item-details.model";
 
@@ -22,8 +22,8 @@ export class ItemListComponent implements OnInit {
 
   ngOnInit() {
     this.formdata = new FormGroup({
-      version: new FormControl(""),
-      chapterNo: new FormControl(""),
+      version: new FormControl("",[Validators.required]),
+      chapterNo: new FormControl("",[Validators.required]),
       order: new FormControl("")
     });
   }
@@ -40,6 +40,7 @@ export class ItemListComponent implements OnInit {
     }
     this.postService.getItemsList(queryString).subscribe(posts => {
       this.items = posts;
+      this.selectedIndex = 0;//when search is submitted the first item is selected
       this.router.navigateByUrl('/items/'+this.items[0].id);
       return posts;
     });

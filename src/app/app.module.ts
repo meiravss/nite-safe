@@ -1,46 +1,61 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
-import {MatInputModule, MatButtonModule, MatSelectModule, MatAutocompleteModule} from '@angular/material';
+//import {MatInputModule, MatButtonModule, MatSelectModule, MatAutocompleteModule} from '@angular/material';
+import {PreloadAllModules, RouterModule} from "@angular/router";
 
 import { AuthInterceptorService } from './shared/services/auth-interceptor.service';
 import { LoggingInterceptorService } from './shared/services/logging-interceptor.service';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { ItemsComponent } from './items/items.component';
-import { ItemListComponent } from './items/item-list/item-list.component';
-import { ItemDetailComponent } from './items/item-detail/item-detail.component';
-import { ItemSingleComponent } from './items/item-list/item-single/item-single.component';
 import { ProofreadingSystemComponent } from './proofreading-system/proofreading-system.component';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { ProofreadingSystemService } from './proofreading-system/proofreading-system.service';
-import { AppRoutingModule } from './app-routing.module';
-import { ItemStartComponent } from './items/item-start/item-start.component';
-import { ItemEditComponent } from './items/item-edit/item-edit.component';
-import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+//import { AppRoutingModule } from './app-routing2.module2.ts2';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    ItemsComponent,
-    ItemListComponent,
-    ItemDetailComponent,
-    ItemSingleComponent,
     ProofreadingSystemComponent,
-    DropdownDirective,
-    ItemStartComponent,
-    ItemEditComponent
+    DropdownDirective
   ],
   imports: [
+    /*  Angular Modules */
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
-    MatInputModule,
-    AppRoutingModule,
+    //MatInputModule,
+    //AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    RouterModule.forRoot([
+      { path: '', redirectTo: '/items', pathMatch: 'full' },
+      // {
+      //   path: 'login',
+      //   component: LoginComponent
+      // },
+      { path: 'proofreading-system', component: ProofreadingSystemComponent },
+      {
+        path: 'items',
+        //canLoad: [SecurityDemoService],
+        // TODO Eyal: apply https://stackoverflow.com/questions/56375703/angular-8-lazy-loading-modules-error-ts1323-dynamic-import-is-only-supporte,
+        //  but still gets this error
+        loadChildren: () => import( './items/items.module' )
+            .then(moduleJSFile => moduleJSFile.ItemsModule)
+
+        /*async () => {
+          let module = await import( './users/users.module' );
+          return  module.UsersModule;
+        }*/
+      },
+      {path: '**', redirectTo: '/items'}
+    ], {
+      useHash: true,
+      preloadingStrategy: PreloadAllModules
+    })
   ],
   providers: [
     {

@@ -5,6 +5,11 @@
           <div class="col-xs-4" style="float:right;">
             <div class="form-group">
               <label>מספר פרק</label>
+
+              <!-- TODO problem: the typing is done above the placeholder-->
+              <!--<mat-form-field>-->
+                <!--<input matInput type="number" placeholder="הכנס מספר פרק" formControlName="chapterNo"  aria-label="Search">-->
+              <!--</mat-form-field>-->
               <input type = "text" class="form-control mr-sm-2 text-right" style="float: right;" name = "chapterNo" placeholder = "הכנס מספר פרק"
                formControlName="chapterNo" aria-label="Search">
             </div>
@@ -51,7 +56,7 @@
   </thead>
 
   <tbody *ngFor="let itemEl of items; let i = index">
-  <tr (click)="onItemSelected(i)" class="table_row text-right" [class.selectedRow]="i==selectedIndex">
+  <tr (click)="onItemSelected(i)" class="table_row text-right" [ngClass]="{'selectedRow': selectedIndex == i}">
     <td class="list-group-area-item">
       {{itemEl.itemStatus.codeValue}}
     </td>
@@ -74,6 +79,9 @@
 </table>
   </div>
 </div>
+<!-- TODO: 	Track router selection - cant use app-item-single because it includes a table grid and
+              I cant select an item inside a grid which is columns and not rows.
+-->
 <!--<div class="row">-->
   <!--<div class="col-xs-12">-->
     <!--<app-item-single-->

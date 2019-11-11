@@ -16,6 +16,7 @@ export class ItemDetailComponent implements OnInit{
   id: number;
   imageBlobUrl: any = null;
 
+  //TODO ng-course: trying to replace the first panel with FormGroup, change templateUrl:'./item-detail.component.html'
   userInfoModel = new FormGroup({
     lang  : new FormControl('kkk'),
   });
@@ -28,10 +29,11 @@ export class ItemDetailComponent implements OnInit{
 
 
   ngOnInit() {
+    // TODO how to use pipe() correctly? subscribe inside subscribe. is that good? move to the proxy service?
     this.route.params
       .subscribe(
         (params: Params) => {
-          this.id = +params['id'];
+          this.id = +params.id;
           this.postService.fetchPosts('items/' + this.id).subscribe(posts => {
             this.item =new ItemDataModel(posts['ITEM'],posts['WHOLE'],posts['STEM'],posts['ANSWER']);
             return posts;
@@ -54,12 +56,13 @@ export class ItemDetailComponent implements OnInit{
 
   onEditRecipe() {
     this.router.navigate(['edit'], {relativeTo: this.route});
-    // this.router.navigate(['../', this.id, 'edit'], {relativeTo: this.route});
   }
 
-    getChapterDomainDisplay(){
-      return this.item.itemDetails.chapterDomain.domainName +" - "+ this.item.itemDetails.chapterDomain.domainCode;
-    }
+  // TODO since many JSONs display value as "<name> - <code>" I created \items\models\code-name.model.ts that needs to be extended
+  //      and use its property. what is the right way to implement the following methods in a shared property? (in NG-Course it is done by patchValue)
+  getChapterDomainDisplay(){
+    return this.item.itemDetails.chapterDomain.domainName +" - "+ this.item.itemDetails.chapterDomain.domainCode;
+  }
   getLangDisplay(){
     let str = this.item.itemDetails.languages.languageCode +" - "+ this.item.itemDetails.languages.languageName;
     return str;
@@ -76,6 +79,8 @@ export class ItemDetailComponent implements OnInit{
   getItemDomainDisplay(){
     return this.item.itemDetails.itemDomain.domainName +" - "+ this.item.itemDetails.itemDomain.itemDomain;
   }
+
+  // not in use!
   getThumbnail() : void {
     this.postService.getImage('items/image')
       .subscribe((val) => {

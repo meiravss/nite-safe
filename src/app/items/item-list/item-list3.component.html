@@ -58,7 +58,7 @@
   </thead>
 
   <tbody *ngFor="let itemEl of items; let i = index">
-  <tr (click)="onItemSelected(i)" class="table_row text-right" [class.selectedRow]="i==selectedIndex">
+  <tr (click)="onItemSelected(i)" class="table_row text-right" [class.selectedRow]="i===selectedIndex">
     <td class="list-group-area-item">
       {{itemEl.itemStatus.codeValue}}
     </td>
