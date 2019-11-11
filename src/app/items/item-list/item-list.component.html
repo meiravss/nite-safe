@@ -1,0 +1,86 @@
+<div class="row" xmlns="http://www.w3.org/1999/html">
+  <div class="col-xs-12">
+      <form [formGroup] = "formdata" (ngSubmit) = "onClickSubmit()">
+        <div class="row text-right">
+          <div class="col-xs-4" style="float:right;">
+            <div class="form-group">
+              <label>מספר פרק</label>
+              <input type = "text" class="form-control mr-sm-2 text-right" style="float: right;" name = "chapterNo" placeholder = "הכנס מספר פרק"
+               formControlName="chapterNo" aria-label="Search">
+            </div>
+          </div>
+          <div class="col-xs-4" style="float:right;">
+            <div class="form-group">
+              <label>נוסח</label>
+              <input type = "text" class = "form-control mr-sm-2 text-right" style="float: right;" name = "version" placeholder = "הכנס מספר נוסח"
+                     formControlName="version">
+            </div>
+          </div>
+          <div class="col-xs-4" style="float:right;">
+            <div class="form-group">
+              <label>מספר שאלה</label>
+              <input type = "text" class = "form-control mr-sm-2 text-right" style="float: right;" name = "order" placeholder = "הכנס מספר שאלה"
+                     formControlName="order">
+
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+          <br/>
+            <button class="btn btn-primary btn-rounded btn-sm my-0" type="submit">חפש הפריט\ים</button>
+            <!--<i class="fas fa-search fa-lg" aria-hidden="true"></i>-->
+          </div>
+        </div>
+      </form>
+  </div>
+</div>
+<hr>
+<div class="my-correspondence-area">
+  <div class="list-group-area">
+<table class="listing">
+
+  <thead aria-hidden="true">
+  <tr >
+    <th><div  class="text-right">מצב</div></th>
+    <th><div  class="text-right">פריט אב</div></th>
+    <th><div class="text-right">סוג פריט</div></th>
+    <th><div  class="text-right">מספר פריט</div></th>
+    <th><div  class="text-right">#</div></th>
+  </tr>
+  </thead>
+
+  <tbody *ngFor="let itemEl of items; let i = index">
+  <tr (click)="onItemSelected(i)" class="table_row text-right" [class.selectedRow]="i==selectedIndex">
+    <td class="list-group-area-item">
+      {{itemEl.itemStatus.codeValue}}
+    </td>
+    <td class="list-group-area-item" *ngIf="itemEl.parentItem!=undefined">
+      {{itemEl.parentItem.parentItemNum}}-{{itemEl.parentItem.parentItemVersion}}
+    </td>
+    <td class="list-group-area-item" *ngIf="itemEl.parentItem==undefined">
+
+    </td>
+    <td class="list-group-area-item">
+      {{itemEl.itemDomain.itemDomain}}-{{itemEl.itemDomain.domainName}}
+    </td>
+    <td class="list-group-area-item">
+      {{itemEl.itemNo}}-{{itemEl.itemRevis}}
+    </td>
+    <td class="list-group-area-item">
+      {{i+1}}
+    </td>
+  </tr>
+</table>
+  </div>
+</div>
+<!--<div class="row">-->
+  <!--<div class="col-xs-12">-->
+    <!--<app-item-single-->
+      <!--*ngFor="let itemEl of items; let i = index"-->
+      <!--[item]="itemEl"-->
+      <!--[index]="i"></app-item-single>-->
+  <!--</div>-->
+<!--</div>-->
+
+

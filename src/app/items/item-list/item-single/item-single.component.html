@@ -1,0 +1,12 @@
+<a
+  style="cursor: pointer;"
+  [routerLink]="[item.id]"
+    routerLinkActive="active"
+  class="list-group-item clearfix">
+  <div class="pull-right">
+    <td class="list-group-item-text"> {{ item?.itemStatus.codeValue}}</td>
+    <td class="list-group-item-text"> {{ item?.itemDomain.itemDomain}}-{{ item?.itemDomain.domainName}}</td>
+    <td class="list-group-item-text"> {{ item?.itemNo}}-{{ item?.itemRevis}}</td>
+    <td class="list-group-item-heading"><h4>{{ index+1 }}</h4></td>
+  </div>
+</a>

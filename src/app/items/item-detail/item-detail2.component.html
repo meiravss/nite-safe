@@ -1,0 +1,198 @@
+<div class="container">
+  <div class="accordion-option">
+    <a href="javascript:void(0)" class="toggle-accordion active" accordion-id="#accordion"></a>
+    <h3 class="title">{{item?.itemDetails?.itemNo}}-{{item?.itemDetails?.itemRevis}} פריט   </h3>
+  </div>
+  <div class="clearfix"></div>
+  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="headingOne">
+        <h4 class="panel-title text-right">
+          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            פרטי פריט
+          </a>
+        </h4>
+      </div>
+      <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+        <div class="panel-body">
+          <div class="row col-xs-12">
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group text-right">
+                  <label>שפה</label>
+                  <span class="form-control" [textContent]="item?.itemDetails?getLangDisplay():''"></span>
+                </div>
+              </div>
+              <div class="col-xs-6">
+                <div class="form-group text-right">
+                  <label>תחום פריט</label>
+                  <span class="form-control" [textContent]="item?.itemDetails?getChapterDomainDisplay():''"></span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group text-right">
+                  <label>מספר תשובה</label>
+                  <span class="form-control" [textContent]="item?.itemDetails?.answerNum"></span>
+                </div>
+              </div>
+              <div class="col-xs-6">
+                <div class="form-group text-right">
+                  <label>סוג פריט</label>
+                  <span class="form-control" [textContent]="item?.itemDetails?getItemDomainDisplay():''"></span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group text-right">
+                  <br/>
+                  <b> אסור בבמות </b>  <input
+                    type="checkbox"
+                    [checked]="item?.itemDetails?.notBamotFlag" disabled/>
+                </div>
+              </div>
+              <div class="col-xs-6">
+                <div class="form-group text-right">
+                  <label>מצב פריט</label>
+                  <span class="form-control" [textContent]="item?.itemDetails?.itemStatus.codeValue"></span>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="item?.itemDetails?.parentItem!=undefined" class="row">
+              <div class="col-xs-12 pull-right">
+                <div class="form-group text-right">
+                  <label>פריט אב</label>
+                  <span class="form-control" [textContent]="item?.itemDetails?.parentItem?getParentDomainDisplay():''"></span>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="item?.itemDetails?.itemRevisC!=undefined" class="row">
+              <div class="col-xs-12">
+                <div class="form-group text-right">
+                  <label>מהות השינוי</label>
+                  <span class="form-control" [textContent]="item?.itemDetails?.itemRevisC?getReviseDisplay():''"></span>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="item?.itemDetails?.remark!=undefined" class="row">
+              <div class="col-xs-12">
+                <div class="form-group text-right">
+                  <label>הערה</label>
+                  <span class="form-control" [textContent]="item?.itemDetails?.remark"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="headingThree">
+        <h4 class="panel-title text-right">
+          <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+            תמונת טקסט פריט
+          </a>
+        </h4>
+      </div>
+      <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+        <div class="panel-body">
+          <div class="col-xs-12 list-group">
+              <div class="list-group-item" *ngIf="imageBlobUrl!=undefined">
+                <img [src]="imageBlobUrl"
+                     alt="{{ item?.itemDetails?.itemNo }}"
+                     class="img-responsive">
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="headingTwo">
+        <h4 class="panel-title text-right">
+          <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            טקסט הפריט
+          </a>
+        </h4>
+      </div>
+      <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+        <div class="panel-body">
+          <div class="row col-xs-12">
+            <div class="col-xs-12 list-group">
+              <div class="list-group-item" [innerHTML]="item?.whole"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="headingFour">
+        <h4 class="panel-title text-right">
+          <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+            טקסט גזע הפריט
+          </a>
+        </h4>
+      </div>
+      <div id="collapseFour" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFour">
+        <div class="panel-body">
+          <div class="row col-xs-12">
+            <div class="col-xs-12 list-group">
+              <div class="list-group-item" [innerHTML]="item?.stem"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="headingFive">
+        <h4 class="panel-title text-right">
+          <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+            טקסט תשובות הפריט
+          </a>
+        </h4>
+      </div>
+      <div id="collapseFive" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFive">
+        <div class="panel-body">
+          <div class="col-xs-12">
+              <div *ngIf="item?.answers!=undefined">
+                <ul class="list-group" *ngFor="let ans of item.answers">
+                  <li class="list-group-item" [innerHTML]="ans"></li>
+                </ul>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  $(document).ready(function() {
+
+    $(".toggle-accordion").on("click", function() {
+      var accordionId = $(this).attr("accordion-id"),
+        numPanelOpen = $(accordionId + ' .collapse.in').length;
+
+      $(this).toggleClass("active");
+
+      if (numPanelOpen == 0) {
+        openAllPanels(accordionId);
+      } else {
+        closeAllPanels(accordionId);
+      }
+    })
+
+    openAllPanels = function(aId) {
+      console.log("setAllPanelOpen");
+      $(aId + ' .panel-collapse:not(".in")').collapse('show');
+    }
+    closeAllPanels = function(aId) {
+      console.log("setAllPanelclose");
+      $(aId + ' .panel-collapse.in').collapse('hide');
+    }
+
+  });
+
+</script>
