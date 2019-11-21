@@ -8,7 +8,7 @@ import {ItemDataModel} from "../models/item-data.model";
 
 @Component({
   selector: 'app-item-detail',
-  templateUrl: './item-detail2.component.html',
+  templateUrl: './item-detail.component.html',
   styleUrls: ['./item-detail.component.css']
 })
 export class ItemDetailComponent implements OnInit{
@@ -16,7 +16,7 @@ export class ItemDetailComponent implements OnInit{
   id: number;
   imageBlobUrl: any = null;
 
-  //TODO ng-course: trying to replace the first panel with FormGroup, change templateUrl:'./item-detail.component.html'
+  //TODO Eyal: trying to replace the first panel with FormGroup, change templateUrl:'./item-detail.component.html'
   userInfoModel = new FormGroup({
     lang  : new FormControl('kkk'),
   });
@@ -29,7 +29,8 @@ export class ItemDetailComponent implements OnInit{
 
 
   ngOnInit() {
-    // TODO how to use pipe() correctly? subscribe inside subscribe. is that good? move to the proxy service?
+    // TODO Eyal: how to use pipe() correctly? subscribe inside subscribe. is that good?
+    //  TODO move to the proxy service?
     this.route.params
       .subscribe(
         (params: Params) => {
@@ -59,7 +60,8 @@ export class ItemDetailComponent implements OnInit{
   }
 
   // TODO since many JSONs display value as "<name> - <code>" I created \items\models\code-name.model.ts that needs to be extended
-  //      and use its property. what is the right way to implement the following methods in a shared property? (in NG-Course it is done by patchValue)
+  //      and use its property. what is the right way to implement the following methods in a shared property?
+  //      (in NG-Course it is done by patchValue in UsersBl)
   getChapterDomainDisplay(){
     return this.item.itemDetails.chapterDomain.domainName +" - "+ this.item.itemDetails.chapterDomain.domainCode;
   }

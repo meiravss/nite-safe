@@ -2,6 +2,7 @@ import {ItemDetailsModel} from "./item-details.model";
 
 // TODO need to use Deserializable in order to build the nested models,
 //  otherwise TS does not use the constructor and I cannot inherit from CodeNameModel
+// TODO Eyal: after creating the object in the REST side then change this to interface by using Json2TS
 export class ItemDataModel{
   whole?: string;
   stem?: string;
